@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+build/
+dist/
+*.spec
+my_patterns.json
+neon_studio_error.log
+
+# seller-only: private signing key, buyer data, your Gmail app password
+seller/
+payment_config.local.json

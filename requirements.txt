@@ -1,0 +1,16 @@
+customtkinter>=5.2
+bleak>=0.21
+# screen sync (Ambient)
+mss
+pillow
+# music mode, clap control, voice
+numpy
+soundcard
+SpeechRecognition
+# system tray, PC meter, typing reactive
+pystray
+psutil
+pynput
+
+# optional: draws the UPI QR from your UPI id if you do not supply upi_qr.png
+qrcode
