@@ -1,0 +1,42 @@
+name: Build Windows app
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install customtkinter bleak mss pillow numpy soundcard SpeechRecognition pystray psutil pynput pyinstaller
+
+      - name: Build the exe
+        run: >
+          pyinstaller --noconfirm --onefile --windowed --name NeonStudio
+          --collect-all customtkinter
+          --collect-submodules bleak
+          --collect-all winrt
+          --collect-all soundcard
+          --collect-data speech_recognition
+          --hidden-import pynput.keyboard._win32
+          --hidden-import pynput.mouse._win32
+          --hidden-import pystray._win32
+          --add-data "payment_config.json;."
+          --add-data "upi_qr.png;."
+          neon_studio.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NeonStudio-Windows
+          path: dist/NeonStudio.exe
